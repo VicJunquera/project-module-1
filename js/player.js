@@ -9,10 +9,8 @@ class Player {
     this.vy = 0;
     this.bullets = [];
     this.canShoot = true;
-    this.animationTick = 0;
-
+    this.rotation = 0;
     this.img = `url(./assets/player.png)`;
-
     this.draw();
     this.setListeners();
 
@@ -31,8 +29,8 @@ class Player {
     this.element.style.backgroundSize = "cover";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
-    this.element.style.left = `${this.left}px`;
-    this.element.style.top = `${this.top}px`;
+    this.element.style.left = `${this.x}px`;
+    this.element.style.top = `${this.y}px`;
 
     this.container.appendChild(this.element);
   }
@@ -41,40 +39,77 @@ class Player {
     this.x += this.vx;
     this.y += this.vy;
 
+    if (this.x > this.container.offsetWidth) {
+      this.x = -this.width;
+    } else if (this.x < -this.width) {
+      this.x = this.container.offsetWidth;
+    }
+
+    if (this.y > this.container.offsetHeight) {
+      this.y = -this.height;
+    } else if (this.y < -this.height) {
+      this.y = this.container.offsetHeight;
+    }
+
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
 
+    this.bullets.forEach((bullet) => {
+      bullet.move();
+    });
+    this.cleanup();
     this.animate();
   }
 
   animate() {
-    if(this.movements.up === true && this.movements.right === true){
-        this.rotateCharacter(45)
+    if (this.movements.up === true && this.movements.right === true) {
+      this.rotatePlayer(45);
     }
+    if (this.movements.right === true && this.movements.down === true) {
+      this.rotatePlayer(135);
+    }
+    if (this.movements.down === true && this.movements.left === true) {
+      this.rotatePlayer(-135);
+    }
+    if (this.movements.left === true && this.movements.up === true) {
+      this.rotatePlayer(-45);
+    }
+  }
+
+  shoot() {
+    this.bullets.push(
+      new Bullet(this.container, this.x, this.y, this.rotation)
+    );
+
+    this.canShoot = false;
+
+    setTimeout(() => {
+      this.canShoot = true;
+    }, 100);
   }
 
   setListeners() {
     window.addEventListener("keydown", (e) => {
       switch (e.code) {
         case "ArrowUp":
-          this.vy = -10;
+          this.vy = -5;
           this.movements.up = true;
-          this.rotateCharacter(0);
+          this.rotatePlayer(0);
           break;
         case "ArrowRight":
-          this.vx = 10;
+          this.vx = 5;
           this.movements.right = true;
-          this.rotateCharacter(90);
+          this.rotatePlayer(90);
           break;
         case "ArrowDown":
-          this.vy = 10;
+          this.vy = 5;
           this.movements.down = true;
-          this.rotateCharacter(180);
+          this.rotatePlayer(180);
           break;
         case "ArrowLeft":
-          this.vx = -10;
+          this.vx = -5;
           this.movements.left = true;
-          this.rotateCharacter(-90);
+          this.rotatePlayer(-90);
           break;
         default:
           return;
@@ -100,13 +135,32 @@ class Player {
           this.movements.down = false;
           break;
         default:
-          break;
+      }
+    });
+    window.addEventListener("click", (e) => {
+      if (this.canShoot) {
+        this.shoot();
       }
     });
   }
 
-  rotateCharacter(degrees) {
+  rotatePlayer(degrees) {
+    this.rotation = degrees;
     this.element.style.transform = `rotate(${degrees}deg)`;
-    this.element.style.transition = "0.2s";
+    this.element.style.transition = "0.1s";
+    return this.rotation;
+  }
+
+  cleanup() {
+    const filteredBullets = this.bullets.filter((bullet) => {
+      return (
+        bullet.x < this.container.offsetWidth &&
+        bullet.x > -5 &&
+        bullet.y < this.container.offsetHeight &&
+        bullet.y > -5
+      );
+    });
+
+    this.bullets = filteredBullets;
   }
 }
