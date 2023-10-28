@@ -1,17 +1,37 @@
 body {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: grey;
-    margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: grey;
+  margin: 0;
 }
 
 #game-board {
-    overflow: hidden;
-    width: 800px;
-    height: 500px;
-    background-color: white;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: relative;
+  background: url(/assets/background.png);
+  background-size: cover;
+}
+
+#intro-game-btn {
+  align-self: flex-end;
+  margin-bottom: -100px;
+  width: 250px;
+  position: absolute;
+}
+
+#title-game {
+  position: absolute;
+  margin-top: -100px;
+  color: white;
+  font-size: 70px;
+  border: none;
+  background-color: transparent;
 }
