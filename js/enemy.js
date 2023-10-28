@@ -3,13 +3,10 @@ class Enemy {
         this.container = container;
         this.width = 50;
         this.height = 50;
+        this.x = this.container.offsetWidth
+        this.y = Math.floor(Math.random() * (this.container.offsetHeight ));
         
-        this.vx = 0;
-        this.vy = 0;
-
-        const boardWidth = this.container.offsetWidth;
-        const boardHeight = this.container.offsetHeight;
-
+        this.vx = -10;
 
         this.element = document.createElement("div");
         this.element.style.position = "absolute";
@@ -18,36 +15,34 @@ class Enemy {
         this.element.style.backgroundPosition = "center";
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
-        this.element.style.left = Math.random() * (boardWidth - 20) + 'px';
-        this.element.style.top = Math.random() * (boardHeight - 20) + 'px';
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
 
 
         this.container.appendChild(this.element);
-        this.updateDirection();
         this.move();
   
     }
 
-    move () {
-        const speed = 1;
-        const angle = Math.random() * 360;
-        const deltaX = Math.cos(angle * (Math.PI / 180)) * speed;
-        const deltaY = Math.sin(angle * (Math.PI / 180)) * speed;
-
-        const currentX = parseFloat(this.element.style.left);
-        const currentY = parseFloat(this.element.style.top);
-
-        this.element.style.left = currentX + deltaX + 'px';
-        this.element.style.top = currentY + deltaY + 'px';
-
-        requestAnimationFrame(() => this.move());
-    }
-
-    updateDirection() {
-        setInterval(() => {
-            this.move();
-        }, 3000);
-    }
-
+    move() {
+        this.x += this.vx;
+        this.element.style.left = `${this.x}px`;
+      }
+    
+      didCollide(obstacle) {
+        const enemyRect = this.element.getBoundingClientRect();
+        const obstacleRect = obstacle.element.getBoundingClientRect();
+    
+        if (
+          enemyRect.left < obstacleRect.right &&
+          enemyRect.right > obstacleRect.left &&
+          enemyRect.top < obstacleRect.bottom &&
+          enemyRect.bottom > obstacleRect.top
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 }
 

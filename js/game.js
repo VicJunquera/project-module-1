@@ -6,7 +6,7 @@ class Game {
     
     setInterval(() => {
       this.enemies.push(new Enemy(this.container));
-      }, 2000);
+      }, 4000);
   
   }
 
@@ -20,5 +20,8 @@ class Game {
 
   update() {
     this.player.move();
+    this.enemies.forEach((enemy) => {
+      enemy.move();
+    });
   }
 }
