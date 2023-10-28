@@ -1,16 +1,16 @@
-class Enemy {
+class Enemy2 {
     constructor(container) {
         this.container = container;
-        this.width = 60;
-        this.height = 40;
-        this.x = this.container.offsetWidth
-        this.y = Math.floor(Math.random() * (this.container.offsetHeight));
+        this.width = 45;
+        this.height = 55;
+        this.x =  Math.floor(Math.random() * (this.container.offsetWidth));
+        this.y = -50;
         
-        this.vx = -5;
+        this.vy = 5;
 
         this.element = document.createElement("div");
         this.element.style.position = "absolute";
-        this.element.style.background = `url(./assets/enemy.gif)`;
+        this.element.style.background = `url(./assets/enemy2.gif)`;
         this.element.style.backgroundSize = "cover";
         this.element.style.backgroundPosition = "center";
         this.element.style.width = `${this.width}px`;
@@ -25,8 +25,8 @@ class Enemy {
     }
 
     move() {
-        this.x += this.vx;
-        this.element.style.left = `${this.x}px`;
+        this.y += this.vy;
+        this.element.style.top = `${this.y}px`;
       }
     
       didCollide(obstacle) {

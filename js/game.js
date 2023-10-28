@@ -3,12 +3,21 @@ class Game {
     this.container = container;
     this.player = new Player(this.container);
     this.enemies = []
-    
+    this.enemyBoss = []
+
     setInterval(() => {
       this.enemies.push(new Enemy(this.container));
-      }, 2000);
+      }, 3000);
+
+    setInterval(() => {
+      this.enemies.push(new Enemy2(this.container));
+      }, 1200);
+
+    setInterval(() => {
+      this.enemies.push(new Enemy3(this.container))
+    }, 1000)
+    }
   
-  }
 
   start() {
     this.intervalId = setInterval(() => {
@@ -22,7 +31,6 @@ class Game {
     this.enemies.forEach((enemy) => {
       const inBoard = enemy.x + enemy.width > 0;
       if (!inBoard) {
-        console.log("enemy.element", enemy.element);
         enemy.element.remove();
       }
     });
@@ -32,6 +40,7 @@ class Game {
     });
 
     this.enemies = filteredEnemies;
+
   }
 
 
