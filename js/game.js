@@ -6,7 +6,7 @@ class Game {
     
     setInterval(() => {
       this.enemies.push(new Enemy(this.container));
-      }, 4000);
+      }, 2000);
   
   }
 

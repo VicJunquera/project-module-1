@@ -10,7 +10,7 @@ class Enemy {
 
         this.element = document.createElement("div");
         this.element.style.position = "absolute";
-        this.element.style.background = `url(./assets/enemy.png)`;
+        this.element.style.background = `url(./assets/enemy3.gif)`;
         this.element.style.backgroundSize = "cover";
         this.element.style.backgroundPosition = "center";
         this.element.style.width = `${this.width}px`;
