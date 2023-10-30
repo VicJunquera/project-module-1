@@ -1,5 +1,5 @@
 class Enemy3 {
-  constructor(container, player) {
+  constructor(container) {
     this.container = container;
     this.width = 100;
     this.height = 100;
