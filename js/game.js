@@ -2,29 +2,28 @@ class Game {
   constructor(container) {
     this.container = container;
     this.player = new Player(this.container);
-    this.enemies = []
-    this.enemyBoss = []
+    this.enemies = [];
+    this.enemyBoss = [];
 
-    setInterval(() => {
+    /*setInterval(() => {
       this.enemies.push(new Enemy(this.container));
-      }, 3000);
+    }, 3000);
 
     setInterval(() => {
       this.enemies.push(new Enemy2(this.container));
-      }, 1200);
+    }, 1200);*/
 
     setInterval(() => {
-      this.enemies.push(new Enemy3(this.container))
-    }, 1000)
-    }
-  
+      if (!this.enemyBoss.length) {
+        this.enemyBoss.push(new Enemy3(this.container));
+      }
+    }, 1000);
+  }
 
   start() {
     this.intervalId = setInterval(() => {
       this.update();
     }, 1000 / 30);
-
-
   }
 
   cleanup() {
@@ -40,16 +39,11 @@ class Game {
     });
 
     this.enemies = filteredEnemies;
-
   }
-
-
-checkCollisions() {
+  checkCollisions() {
     // Enemy - player collision
-
     const collidedEnemy = this.enemies.find((enemy) => {
       return enemy.didCollide(this.player);
-      
     });
 
     if (collidedEnemy) {
@@ -59,35 +53,82 @@ checkCollisions() {
 
       collidedEnemy.element.style.display = "none";
       this.player.hits--;
+    }
 
+    // EnemyBoss - player collision
+    const collidedBoss = this.enemyBoss.find((enemy) => {
+      return enemy.didCollide(this.player);
+    });
+
+    if (collidedBoss) {
+      this.enemyBoss = this.enemyBoss.filter((enemy) => {
+        return enemy !== collidedBoss;
+      });
+
+      collidedBoss.element.style.display = "none";
+      this.player.hits--;
     }
 
     // bullet - enemy collision
-
     this.player.bullets.find((bullet) => {
-      return this.enemies.find((enemy) => {
+      this.enemies.find((enemy) => {
         if (enemy.didCollide(bullet)) {
           enemy.element.remove();
-
           this.enemies = this.enemies.filter((en) => {
             return en !== enemy;
           });
 
           bullet.element.remove();
-
           this.player.bullets = this.player.bullets.filter((bul) => {
             return bul !== bullet;
           });
         }
       });
+      // Create an array to store bullets that need to be removed
+      const bulletsToRemove = [];
+
+      // bullet - enemyBoss collision
+      this.player.bullets = this.player.bullets.filter((bullet) => {
+        const collidedBoss = this.enemyBoss.find((enemy) => {
+          if (enemy.didCollide(bullet)) {
+            enemy.hits++; // Increase the hit count of the enemyBoss
+            if (enemy.hits >= 10) {
+              enemy.element.remove(); // Remove the Enemy3
+            }
+            bullet.element.remove(); // Remove the bullet
+            return true; // Return true to remove the bullet
+          }
+          return false;
+        });
+
+        // Return true to remove the bullet only if it hit an enemyBoss
+        return !collidedBoss;
+      });
+
+      // Remove defeated Enemy3 from the enemyBoss array
+      this.enemyBoss = this.enemyBoss.filter((enemy) => enemy.hits < 10);
+
+      // Remove bullets that need to be removed
+      bulletsToRemove.forEach((bullet) => {
+        bullet.element.remove();
+        this.player.bullets = this.player.bullets.filter(
+          (bul) => bul !== bullet
+        );
+      });
     });
   }
+
   update() {
     this.player.move();
     this.enemies.forEach((enemy) => {
       enemy.move();
     });
-    this.checkCollisions()
-    this.cleanup()
+
+    this.enemyBoss.forEach((enemy) => {
+      enemy.move();
+    });
+
+    this.checkCollisions();
+    this.cleanup();
   }
 }
