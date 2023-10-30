@@ -26,6 +26,7 @@ class Player {
 
   draw() {
     this.element = document.createElement("div");
+    this.element.className = "player";
     this.element.style.position = "absolute";
     this.element.style.background = this.img;
     this.element.style.backgroundSize = "cover";
@@ -116,6 +117,28 @@ class Player {
           this.movements.left = true;
 
           break;
+        case "KeyA":
+          this.vx = -this.speed;
+          this.movements.left = true;
+
+          break;
+
+        case "KeyW":
+          this.vy = -this.speed;
+          this.movements.up = true;
+
+          break;
+        case "KeyD":
+          this.vx = this.speed;
+          this.movements.right = true;
+
+          break;
+        case "KeyS":
+          this.vy = this.speed;
+          this.movements.down = true;
+
+          break;
+
         default:
           return;
       }
@@ -136,6 +159,23 @@ class Player {
           this.movements.up = false;
           break;
         case "ArrowDown":
+          this.vy = 0;
+          this.movements.down = false;
+          break;
+
+        case "KeyD":
+          this.vx = 0;
+          this.movements.right = false;
+          break;
+        case "KeyA":
+          this.vx = 0;
+          this.movements.left = false;
+          break;
+        case "KeyW":
+          this.vy = 0;
+          this.movements.up = false;
+          break;
+        case "KeyS":
           this.vy = 0;
           this.movements.down = false;
           break;
