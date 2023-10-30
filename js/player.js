@@ -25,6 +25,7 @@ class Player {
 
   draw() {
     this.element = document.createElement("div");
+    this.element.className = "player";
     this.element.style.position = "absolute";
     this.element.style.background = this.img;
     this.element.style.backgroundSize = "cover";
@@ -121,7 +122,7 @@ class Player {
 
           break;
 
-          case "KeyW":
+        case "KeyW":
           this.vy = -this.speed;
           this.movements.up = true;
 
@@ -136,7 +137,7 @@ class Player {
           this.movements.down = true;
 
           break;
-   
+
         default:
           return;
       }
