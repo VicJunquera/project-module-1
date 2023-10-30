@@ -208,4 +208,30 @@ class Player {
 
     this.bullets = filteredBullets;
   }
+
+  didCollide(enemy) {
+    // Calculate the positions and dimensions of the player and the enemy
+    const playerLeft = this.x;
+    const playerRight = this.x + this.width;
+    const playerTop = this.y;
+    const playerBottom = this.y + this.height;
+
+    const enemyLeft = enemy.x;
+    const enemyRight = enemy.x + enemy.width;
+    const enemyTop = enemy.y;
+    const enemyBottom = enemy.y + enemy.height;
+
+    // Check for collision using bounding box collision detection
+    if (
+      playerLeft < enemyRight &&
+      playerRight > enemyLeft &&
+      playerTop < enemyBottom &&
+      playerBottom > enemyTop
+    ) {
+      return true; // Collided
+    }
+
+    return false; // No collision
+  }
+
 }

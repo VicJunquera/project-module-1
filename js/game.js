@@ -6,14 +6,13 @@ class Game {
     this.enemies = [];
     this.enemyBoss = [];
 
-   /* setInterval(() => {
+    setInterval(() => {
       this.enemies.push(new Enemy(this.container));
     }, 3000);
 
     setInterval(() => {
       this.enemies.push(new Enemy2(this.container));
-    }, 1200);*/
-
+    }, 1200);
     setInterval(() => {
       if (!this.enemyBoss.length) {
         this.enemyBoss.push(new Enemy3(this.container));
@@ -85,6 +84,7 @@ class Game {
           });
         }
       });
+      
       // Create an array to store bullets that need to be removed
       const bulletsToRemove = [];
 
@@ -99,7 +99,6 @@ class Game {
               enemy.enemyBullets.forEach((enemyBullet) => {
                 enemyBullet.element.remove();
               });
-  
             }
             bullet.element.remove(); // Remove the bullet
             return true; // Return true to remove the bullet
@@ -122,6 +121,22 @@ class Game {
         );
       });
     });
+    this.enemyBoss.forEach((enemy) => {
+      enemy.enemyBullets = enemy.enemyBullets.filter((enemyBullet) => {
+        if (this.player.didCollide(enemyBullet)) {
+          enemyBullet.element.remove();
+          this.player.hits--; // Decrease player's hits
+          /*this.player.element.style.display = "none";
+          setTimeout(() => {
+            this.player.draw()
+          }, 2000)*/
+          return false; // Remove the enemyBullet
+        } else {
+          return true; // Keep the enemyBullet
+        }
+      });
+    });
+  
   }
 
   update() {
