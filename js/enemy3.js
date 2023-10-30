@@ -1,5 +1,5 @@
 class Enemy3 {
-  constructor(container) {
+  constructor(container, player) {
     this.container = container;
     this.width = 100;
     this.height = 100;
@@ -15,7 +15,6 @@ class Enemy3 {
     this.element.style.height = `${this.height}px`;
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
-
     this.hits = 0;
     this.cooldown = 0;
 
@@ -73,10 +72,11 @@ class Enemy3 {
   startShooting() {
     if (this.container.querySelector(".player")) {
       const player = this.container.querySelector(".player");
-      const playerRect = player.getBoundingClientRect();
+      const playerRectX = (player.getBoundingClientRect().left + 50 / 2) - this.container.getBoundingClientRect().left;
+      const playerRectY = (player.getBoundingClientRect().top + 75 / 2) - this.container.getBoundingClientRect().top;
       const angle = Math.atan2(
-        playerRect.top - (this.y + this.height / 2),
-        playerRect.left - (this.x + this.width / 2)
+        playerRectY - (this.y + this.height / 2),
+        playerRectX - (this.x + this.width / 2)
       );
 
       // Create and shoot an enemy bullet
