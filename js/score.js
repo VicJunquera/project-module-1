@@ -31,7 +31,7 @@ class Score {
       this.heartsContainer.appendChild(heart);
     });
 
-    new Array(this.lifes).fill("").forEach((_) => {
+    new Array(this.bombs).fill("").forEach((_) => {
       const bomb = document.createElement("img");
       bomb.src = "./assets/bomb.gif";
       bomb.style.width = "30px";
