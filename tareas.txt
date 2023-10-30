@@ -1,0 +1,16 @@
+Enemy3
+    didCollide bala enemiga al jugador
+
+Score
+    añadir valores this.score a los enemigos
+    que se sumen las puntuaciones al acabar con los enemigos
+
+Player
+    Perder una vida cuando colisiona con un enemigo o un disparo enemigo
+    Cuando pierde una vida, explosión, limpia el game board y vuelve a aparecer 1 segundo después
+
+Enemy1, 2 y 3
+    Modificar su velocidad y frecuencia de aparición en función del score
+    Añadir efectos de desaparecer
+
+Bomba

@@ -6,7 +6,7 @@ class Game {
     this.enemies = [];
     this.enemyBoss = [];
 
-    /*setInterval(() => {
+   /* setInterval(() => {
       this.enemies.push(new Enemy(this.container));
     }, 3000);
 
@@ -18,7 +18,7 @@ class Game {
       if (!this.enemyBoss.length) {
         this.enemyBoss.push(new Enemy3(this.container));
       }
-    }, 1000);
+    }, 5000);
   }
 
   start() {
@@ -94,7 +94,12 @@ class Game {
           if (enemy.didCollide(bullet)) {
             enemy.hits++; // Increase the hit count of the enemyBoss
             if (enemy.hits >= 10) {
+              enemy.deactivate();
               enemy.element.remove(); // Remove the Enemy3
+              enemy.enemyBullets.forEach((enemyBullet) => {
+                enemyBullet.element.remove();
+              });
+  
             }
             bullet.element.remove(); // Remove the bullet
             return true; // Return true to remove the bullet
