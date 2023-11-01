@@ -13,11 +13,12 @@ class Game {
     setInterval(() => {
       this.enemies.push(new Enemy2(this.container));
     }, 1200);
+
     setInterval(() => {
       if (!this.enemyBoss.length) {
         this.enemyBoss.push(new Enemy3(this.container));
       }
-    }, 5000);
+    }, 3000);
   }
 
   start() {
@@ -26,34 +27,12 @@ class Game {
     }, 1000 / 30);
   }
 
-  cleanup() {
-    this.enemies.forEach((enemy) => {
-      const inBoard =
-        enemy.x + enemy.width > 0 &&
-        enemy.x < this.container.offsetWidth &&
-        enemy.y + enemy.height > 0 &&
-        enemy.y < this.container.offsetHeight;
-      if (!inBoard) {
-        enemy.element.remove();
-      }
-    });
-
-    const filteredEnemies = this.enemies.filter((enemy) => {
-      return (
-        enemy.x + enemy.width > 0 &&
-        enemy.x < this.container.offsetWidth &&
-        enemy.y + enemy.height > 0 &&
-        enemy.y < this.container.offsetHeight
-      );
-    });
-
-    this.enemies = filteredEnemies;
-  }
   checkCollisions() {
     // Enemy - player collision
     const collidedEnemy = this.enemies.find((enemy) => {
       return enemy.didCollide(this.player);
     });
+    console.log(collidedEnemy);
 
     if (collidedEnemy) {
       this.enemies = this.enemies.filter((enemy) => {
@@ -61,6 +40,12 @@ class Game {
       });
 
       collidedEnemy.element.style.display = "none";
+      this.player.element.style.display = "none";
+
+      // Después de 2 segundos, volver a mostrar al jugador
+      setTimeout(() => {
+        this.player.element.style.display = "block";
+      }, 2000);
       this.player.hits--;
       this.score.update(this.player.hits, "enemy");
     }
@@ -76,6 +61,12 @@ class Game {
       });
 
       collidedBoss.element.style.display = "none";
+      this.player.element.style.display = "none";
+
+      // Después de 2 segundos, volver a mostrar al jugador
+      setTimeout(() => {
+        this.player.element.style.display = "block";
+      }, 2000);
       this.player.hits--;
 
       // Deactivate the Enemy3 when it collides with the player
@@ -102,6 +93,7 @@ class Game {
       });
 
       // Create an array to store bullets that need to be removed
+
       const bulletsToRemove = [];
 
       // bullet - enemyBoss collision
@@ -109,6 +101,7 @@ class Game {
         const collidedBoss = this.enemyBoss.find((enemy) => {
           if (enemy.didCollide(bullet)) {
             enemy.hits++; // Increase the hit count of the enemyBoss
+
             if (enemy.hits >= 10) {
               enemy.deactivate();
               enemy.element.remove();
@@ -117,9 +110,11 @@ class Game {
                 enemyBullet.element.remove();
               });
             }
+
             bullet.element.remove(); // Remove the bullet
             return true; // Return true to remove the bullet
           }
+
           return false;
         });
 
@@ -146,8 +141,10 @@ class Game {
           this.player.hits--; // Decrease player's hits
           this.score.update(this.player.hits, "enemy");
           this.player.element.style.display = "none";
+
+          // Después de 2 segundos, volver a mostrar al jugador
           setTimeout(() => {
-            this.player.draw();
+            this.player.element.style.display = "block";
           }, 2000);
           return false; // Remove the enemyBullet
         } else {
@@ -155,9 +152,39 @@ class Game {
         }
       });
     });
+
+    if (this.player.hits < 0) {
+      this.container.remove();
+      clearInterval(this.intervalId);
+    }
+  }
+
+  cleanup() {
+    this.enemies.forEach((enemy) => {
+      const inBoard =
+        enemy.x + enemy.width > 0 &&
+        enemy.x < this.container.offsetWidth &&
+        enemy.y + enemy.height > 0 &&
+        enemy.y < this.container.offsetHeight;
+      if (!inBoard) {
+        enemy.element.remove();
+      }
+    });
+
+    const filteredEnemies = this.enemies.filter((enemy) => {
+      return (
+        enemy.x + enemy.width > 0 &&
+        enemy.x < this.container.offsetWidth &&
+        enemy.y + enemy.height > 0 &&
+        enemy.y < this.container.offsetHeight
+      );
+    });
+
+    this.enemies = filteredEnemies;
   }
 
   update() {
+    this.score.scorePoints(0);
     this.player.move();
     this.enemies.forEach((enemy) => {
       enemy.move();
