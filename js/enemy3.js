@@ -33,7 +33,7 @@ class Enemy3 {
       if (this.container.querySelector(".player") && this.isActive) {
         this.startShooting();
       }
-    }, 2000); // Adjust the interval as needed (2 seconds)
+    }, 1000); // Adjust the interval as needed (2 seconds)
 
     // Set up a timer to update enemy bullet positions
     setInterval(() => {
