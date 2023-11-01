@@ -28,14 +28,23 @@ class Game {
 
   cleanup() {
     this.enemies.forEach((enemy) => {
-      const inBoard = enemy.x + enemy.width > 0;
+      const inBoard =
+        enemy.x + enemy.width > 0 &&
+        enemy.x < this.container.offsetWidth &&
+        enemy.y + enemy.height > 0 &&
+        enemy.y < this.container.offsetHeight;
       if (!inBoard) {
         enemy.element.remove();
       }
     });
 
     const filteredEnemies = this.enemies.filter((enemy) => {
-      return enemy.x + enemy.width > 0;
+      return (
+        enemy.x + enemy.width > 0 &&
+        enemy.x < this.container.offsetWidth &&
+        enemy.y + enemy.height > 0 &&
+        enemy.y < this.container.offsetHeight
+      );
     });
 
     this.enemies = filteredEnemies;
@@ -53,6 +62,7 @@ class Game {
 
       collidedEnemy.element.style.display = "none";
       this.player.hits--;
+      this.score.update(this.player.hits, "enemy");
     }
 
     // EnemyBoss - player collision
@@ -67,6 +77,10 @@ class Game {
 
       collidedBoss.element.style.display = "none";
       this.player.hits--;
+
+      // Deactivate the Enemy3 when it collides with the player
+      collidedBoss.deactivate();
+      this.score.update(this.player.hits, "enemy");
     }
 
     // bullet - enemy collision
@@ -79,12 +93,14 @@ class Game {
           });
 
           bullet.element.remove();
+          this.score.scorePoints(100);
+
           this.player.bullets = this.player.bullets.filter((bul) => {
             return bul !== bullet;
           });
         }
       });
-      
+
       // Create an array to store bullets that need to be removed
       const bulletsToRemove = [];
 
@@ -95,7 +111,8 @@ class Game {
             enemy.hits++; // Increase the hit count of the enemyBoss
             if (enemy.hits >= 10) {
               enemy.deactivate();
-              enemy.element.remove(); // Remove the Enemy3
+              enemy.element.remove();
+              this.score.scorePoints(1000); // Remove the Enemy3
               enemy.enemyBullets.forEach((enemyBullet) => {
                 enemyBullet.element.remove();
               });
@@ -121,22 +138,23 @@ class Game {
         );
       });
     });
+
     this.enemyBoss.forEach((enemy) => {
       enemy.enemyBullets = enemy.enemyBullets.filter((enemyBullet) => {
         if (this.player.didCollide(enemyBullet)) {
           enemyBullet.element.remove();
           this.player.hits--; // Decrease player's hits
-          /*this.player.element.style.display = "none";
+          this.score.update(this.player.hits, "enemy");
+          this.player.element.style.display = "none";
           setTimeout(() => {
-            this.player.draw()
-          }, 2000)*/
+            this.player.draw();
+          }, 2000);
           return false; // Remove the enemyBullet
         } else {
           return true; // Keep the enemyBullet
         }
       });
     });
-  
   }
 
   update() {

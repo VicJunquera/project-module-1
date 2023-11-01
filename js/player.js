@@ -11,7 +11,7 @@ class Player {
     this.bullets = [];
     this.canShoot = true;
     this.rotation = 0;
-    this.hits = 3;
+    this.hits = 20;
     this.img = `url(./assets/player.gif)`;
     this.draw();
     this.setListeners();
@@ -233,5 +233,4 @@ class Player {
 
     return false; // No collision
   }
-
 }
