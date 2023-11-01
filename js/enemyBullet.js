@@ -7,7 +7,6 @@ class EnemyBullet {
     this.y = y;
     this.angle = angle;
     this.speed = 5;
-
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
     this.element.style.backgroundImage = "url(./assets/bullet.gif)";
@@ -30,7 +29,5 @@ class EnemyBullet {
 
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
-
-    // You can add collision checks or remove bullets when they go off-screen
   }
 }

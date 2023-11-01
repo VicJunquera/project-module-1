@@ -7,6 +7,7 @@ window.addEventListener("load", () => {
   btnStart.style.transform = "translate(0,-250px)";
   btnStart.style.transition = "2s";
   btnStart.addEventListener("click", () => {
+    btnStart.disable = true;
     const game = new Game(container);
     game.start();
     titleGame.style.transform = "translate(0,-100px)";

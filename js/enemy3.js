@@ -72,8 +72,14 @@ class Enemy3 {
   startShooting() {
     if (this.container.querySelector(".player")) {
       const player = this.container.querySelector(".player");
-      const playerRectX = (player.getBoundingClientRect().left + 50 / 2) - this.container.getBoundingClientRect().left;
-      const playerRectY = (player.getBoundingClientRect().top + 75 / 2) - this.container.getBoundingClientRect().top;
+      const playerRectX =
+        player.getBoundingClientRect().left +
+        50 / 2 -
+        this.container.getBoundingClientRect().left;
+      const playerRectY =
+        player.getBoundingClientRect().top +
+        75 / 2 -
+        this.container.getBoundingClientRect().top;
       const angle = Math.atan2(
         playerRectY - (this.y + this.height / 2),
         playerRectX - (this.x + this.width / 2)
@@ -97,15 +103,33 @@ class Enemy3 {
     this.enemyBullets.forEach((enemyBullet) => {
       enemyBullet.move();
     });
+    this.cleanupEnemyBullets();
   }
   // Add a method to deactivate the enemy
   deactivate() {
     this.isActive = false;
+    clearInterval(this.shootingInterval);
   }
 
-  // Add a method to reactivate the enemy
-  reactivate() {
-    this.isActive = true;
-    this.startShooting(); // Start shooting when reactivated
+  cleanupEnemyBullets() {
+    this.enemyBullets.forEach((bullet) => {
+      if (
+        bullet.x < 0 ||
+        bullet.x > this.container.offsetWidth ||
+        bullet.y < 0 ||
+        bullet.y > this.container.offsetHeight
+      ) {
+        bullet.element.remove();
+      }
+    });
+
+    this.enemyBullets = this.enemyBullets.filter((bullet) => {
+      return !(
+        bullet.x < 0 ||
+        bullet.x > this.container.offsetWidth ||
+        bullet.y < 0 ||
+        bullet.y > this.container.offsetHeight
+      );
+    });
   }
 }

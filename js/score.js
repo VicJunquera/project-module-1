@@ -3,7 +3,7 @@ class Score {
     this.container = container;
     this.lifes = lifes;
     this.bombs = 0;
-    this.score = 0;
+    this.points = 0;
 
     this.width = 150;
     this.height = 100;
@@ -52,5 +52,37 @@ class Score {
     this.element.style.top = `${this.y}px`;
 
     this.container.appendChild(this.element);
+  }
+  update(lifes, collisionType) {
+    this.lifes = lifes;
+    this.updateHearts(collisionType);
+  }
+
+  scorePoints(point) {
+    this.points += point;
+
+    const scoreText = document.getElementById("score-text");
+    scoreText.textContent = `SCORE: ${this.points}`;
+  }
+
+  updateHearts(collisionType) {
+    const heartsNodes = this.element.getElementsByTagName("img");
+    const heartsContainer = document.getElementById("hearts-container");
+
+    if (collisionType === "enemy") {
+      const lastHeart = heartsNodes[heartsNodes.length - 1];
+      lastHeart.remove();
+    }
+
+    if (collisionType === "heart") {
+      if (heartsNodes.length < 5) {
+        const heart = document.createElement("img");
+        heart.src = "./assets/heart.png";
+        heart.style.width = "30px";
+        heart.style.height = "30px";
+
+        heartsContainer.appendChild(heart);
+      }
+    }
   }
 }
