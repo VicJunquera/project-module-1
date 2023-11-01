@@ -7,7 +7,7 @@ Score
 
 Player
     Perder una vida cuando colisiona con un enemigo o un disparo enemigo
-    Cuando pierde una vida, explosión, limpia el game board y vuelve a aparecer 1 segundo después
+    Cuando pierde una vida, vuelve a aparecer 1 segundo después
 
 Enemy1, 2 y 3
     Modificar su velocidad y frecuencia de aparición en función del score
