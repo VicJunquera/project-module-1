@@ -5,24 +5,25 @@ class Game {
     this.score = new Score(this.container, this.player.hits);
     this.enemies = [];
     this.enemyBoss = [];
+    this.enemyTick = 0;
+    this.activeEnemyBoss = true
 
     setInterval(() => {
       this.enemies.push(new Enemy(this.container));
-    }, 3000);
+    }, 1000);
 
-    setInterval(() => {
-      this.enemies.push(new Enemy2(this.container));
-    }, 1200);
-
-    setInterval(() => {
-      if (!this.enemyBoss.length) {
-        this.enemyBoss.push(new Enemy3(this.container));
-      }
-    }, 3000);
   }
 
   start() {
     this.intervalId = setInterval(() => {
+      this.enemyTick++
+      if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
+        this.enemies.push(new Enemy2(this.container))
+      }
+      if (this.score.points % 1000 === 0 && this.score.points >= 1000 && this.activeEnemyBoss) {
+        this.enemyBoss.push(new Enemy3(this.container));
+        this.activeEnemyBoss = false;
+      }
       this.update();
     }, 1000 / 30);
   }
@@ -32,7 +33,6 @@ class Game {
     const collidedEnemy = this.enemies.find((enemy) => {
       return enemy.didCollide(this.player);
     });
-    console.log(collidedEnemy);
 
     if (collidedEnemy) {
       this.enemies = this.enemies.filter((enemy) => {
@@ -109,6 +109,7 @@ class Game {
               enemy.enemyBullets.forEach((enemyBullet) => {
                 enemyBullet.element.remove();
               });
+              this.activeEnemyBoss = true;
             }
 
             bullet.element.remove(); // Remove the bullet
@@ -154,9 +155,9 @@ class Game {
     });
 
     if (this.player.hits < 0) {
-      this.container.remove();
-      clearInterval(this.intervalId);
+        this.gameOver();;
     }
+    
   }
 
   cleanup() {
@@ -181,6 +182,13 @@ class Game {
     });
 
     this.enemies = filteredEnemies;
+  }
+
+  gameOver() {
+    const gameOverBoard = document.getElementById("game-over-board");
+    gameOverBoard.style.display = "flex";
+
+    clearInterval(this.intervalId);
   }
 
   update() {

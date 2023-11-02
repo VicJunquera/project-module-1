@@ -17,6 +17,7 @@ class Enemy3 {
     this.element.style.top = `${this.y}px`;
     this.hits = 0;
     this.cooldown = 0;
+  
 
     // Initialize the enemyBullets array
     this.enemyBullets = [];
@@ -29,7 +30,7 @@ class Enemy3 {
     this.move();
 
     // Set up a timer to shoot every 2 seconds
-    setInterval(() => {
+    this.enemyShootInterval = setInterval(() => {
       if (this.container.querySelector(".player") && this.isActive) {
         this.startShooting();
       }
