@@ -6,26 +6,35 @@ class Game {
     this.enemies = [];
     this.enemyBoss = [];
     this.enemyTick = 0;
-    this.activeEnemyBoss = true
-
-    setInterval(() => {
-      this.enemies.push(new Enemy(this.container));
-    }, 1000);
-
+    this.activeEnemyBoss = true;
+    this.bombs = [];
+    this.activeBomb = true;
   }
 
   start() {
     this.intervalId = setInterval(() => {
       this.enemyTick++
-      if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
-        this.enemies.push(new Enemy2(this.container))
-      }
-      if (this.score.points % 1000 === 0 && this.score.points >= 1000 && this.activeEnemyBoss) {
-        this.enemyBoss.push(new Enemy3(this.container));
-        this.activeEnemyBoss = false;
-      }
+      this.enemyAppear();
       this.update();
     }, 1000 / 30);
+  }
+
+  enemyAppear() {
+    if (this.score.points >= 0 && this.enemyTick % 30 === 0) {
+      this.enemies.push(new Enemy(this.container));
+    }
+    if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
+      this.enemies.push(new Enemy2(this.container))
+    }
+    if (this.score.points % 1000 === 0 && this.score.points >= 1000 && this.activeEnemyBoss) {
+      this.enemyBoss.push(new Enemy3(this.container));
+      this.activeEnemyBoss = false;
+    }
+    if (this.score.points === 200 && this.activeBomb){
+      console.log("entra")
+      this.bombs.push(new Bomb(this.container));
+      this.activeBomb = false;
+    }
   }
 
   checkCollisions() {
@@ -154,10 +163,15 @@ class Game {
       });
     });
 
-    if (this.player.hits < 0) {
-        this.gameOver();;
-    }
-    
+    // player - bomb collision
+    const collidedBomb = this.bombs.find((bomb) => {
+      return bomb.didCollide(this.player);
+    });
+if (this.collidedBomb) {
+  this.activeBomb = true;
+  this.player.bombs++;
+  this.score.update(this.player.bombs, "bomb");
+}
   }
 
   cleanup() {
@@ -188,6 +202,10 @@ class Game {
     const gameOverBoard = document.getElementById("game-over-board");
     gameOverBoard.style.display = "flex";
 
+    const scoreContainer = document.getElementById("score-container");
+    scoreContainer.textContent = `SCORE: ${this.score.points}`;
+
+
     clearInterval(this.intervalId);
   }
 
@@ -203,6 +221,9 @@ class Game {
     });
 
     this.checkCollisions();
+    if (this.player.hits === 0) {
+      this.gameOver();
+  }
     this.cleanup();
   }
 }
