@@ -12,6 +12,7 @@ class Player {
     this.canShoot = true;
     this.rotation = 0;
     this.hits = 3;
+    this.bombs = 1;
     this.img = `url(./assets/player.gif)`;
     this.draw();
     this.setListeners();

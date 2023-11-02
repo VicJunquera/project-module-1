@@ -1,8 +1,8 @@
 class Score {
-  constructor(container, lifes) {
+  constructor(container, lifes, bombs) {
     this.container = container;
     this.lifes = lifes;
-    this.bombs = 1;
+    this.bombs = bombs;
     this.points = 0;
 
     this.width = 150;
@@ -53,8 +53,9 @@ class Score {
 
     this.container.appendChild(this.element);
   }
-  update(lifes, collisionType) {
+  update(lifes, bombs, collisionType) {
     this.lifes = lifes;
+    this.bombs = bombs;
     this.updateHearts(collisionType);
   }
 
@@ -66,22 +67,23 @@ class Score {
   }
 
   updateHearts(collisionType) {
-    const heartsNodes = this.element.getElementsByTagName("img");
     const heartsContainer = document.getElementById("hearts-container");
+    const heartsNodes = heartsContainer.getElementsByTagName("img");
+  
 
     if (collisionType === "enemy") {
       const lastHeart = heartsNodes[heartsNodes.length - 1];
       lastHeart.remove();
     }
 
-    if (collisionType === "heart") {
-      if (heartsNodes.length < 5) {
-        const heart = document.createElement("img");
-        heart.src = "./assets/heart.png";
-        heart.style.width = "30px";
-        heart.style.height = "30px";
+    if (collisionType === "bomb") {
+      if (this.bombsContainer.length < 3) {
+        const bomb = document.createElement("img");
+        bomb.src = "./assets/bomb.gif";
+        bomb.style.width = "30px";
+        bomb.style.height = "30px";
 
-        heartsContainer.appendChild(heart);
+        this.bombsContainer.appendChild(bomb);
       }
     }
   }
