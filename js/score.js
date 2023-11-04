@@ -5,7 +5,7 @@ class Score {
     this.bombs = bombs;
     this.bombElements = [];
     this.points = 0;
-    this.width = 150;
+    this.width = 200;
     this.height = 100;
     this.x = 10;
     this.y = 10;
@@ -90,7 +90,7 @@ class Score {
       this.bombElements.push(bomb);
     }
   }
-  
+
   removeBomb() {
     if (this.bombElements.length > 0) {
       const bomb = this.bombElements.pop();
