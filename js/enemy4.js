@@ -6,13 +6,16 @@ class Enemy4 {
     this.height = 55;
     this.x = this.getRandomXPosition();
     this.y = this.getRandomYPosition();
-    this.speed = 3; // Adjust the speed as needed
+
+    this.scoreValue = 400;
+    this.speed = 3;
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
-    this.element.style.background = `url(./assets/enemy3.gif)`;
+    this.element.style.background = `url(./assets/enemy4.gif)`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
+    this.element.className = "enemy4";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.left = `${this.x}px`;
