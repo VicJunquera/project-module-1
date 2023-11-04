@@ -3,8 +3,9 @@ class Score {
     this.container = container;
     this.lifes = lifes;
     this.bombs = bombs;
+    this.bombElements = [];
     this.points = 0;
-    this.width = 150;
+    this.width = 200;
     this.height = 100;
     this.x = 10;
     this.y = 10;
@@ -76,12 +77,25 @@ class Score {
   updateBombs(bombs) {
     this.bombs = bombs;
     const bombsContainer = document.getElementById("bombs-container");
+    bombsContainer.innerHTML = '';
 
-    const bomb = document.createElement("img");
-    bomb.src = "./assets/bomb.gif";
-    bomb.style.width = "30px";
-    bomb.style.height = "30px";
 
-    bombsContainer.appendChild(bomb);
+    for (let i = 0; i < this.bombs; i++) {
+      const bomb = document.createElement("img");
+      bomb.src = "./assets/bomb.gif";
+      bomb.style.width = "30px";
+      bomb.style.height = "30px";
+  
+      bombsContainer.appendChild(bomb);
+      this.bombElements.push(bomb);
+    }
   }
+
+  removeBomb() {
+    if (this.bombElements.length > 0) {
+      const bomb = this.bombElements.pop();
+      bomb.remove();
+    }
+  }
+    
 }

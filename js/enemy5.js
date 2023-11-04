@@ -4,13 +4,16 @@ class Enemy5 {
     this.player = player;
     this.width = 45;
     this.height = 55;
-    this.speed = 4; // Adjust the speed as needed
+
+    this.scoreValue = 200;
+    this.speed = 4;
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
-    this.element.style.background = `url(./assets/enemy2.gif)`;
+    this.element.style.background = `url(./assets/enemy5.gif)`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
+    this.element.className = "enemy5";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.left = `${this.x}px`;
