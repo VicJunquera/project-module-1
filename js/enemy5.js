@@ -42,6 +42,7 @@ class Enemy5 {
 
     this.rotateToFacePlayer();
   }
+
   draw() {
     const edge = Math.floor(Math.random() * 4);
     let x, y;
