@@ -5,6 +5,7 @@ class Game {
     this.score = new Score(this.container, this.player.hits, this.player.bombs);
     this.enemies = [];
     this.enemyBoss = [];
+    this.enemyBossMilestone = 0;
     this.enemyTick = 0;
     this.activeEnemyBoss = true;
     this.arrBombs = [];
@@ -26,27 +27,30 @@ class Game {
     if (this.score.points >= 0 && this.enemyTick % 90 === 0) {
       this.enemies.push(new Enemy(this.container));
     }
-    if (this.score.points >= 200 && this.enemyTick % 90 === 0) {
+    if (this.score.points >= 500 && this.enemyTick % 120 === 0) {
       this.enemies.push(new Enemy2(this.container));
     }
-    if (this.score.points >= 500 && this.enemyTick % 120 === 0) {
+    if (this.score.points >= 1500 && this.enemyTick % 150 === 0) {
       this.enemies.push(new Enemy5(this.container, this.player));
     }
-    if (this.score.points >= 700 && this.enemyTick % 180 === 0) {
+    if (this.score.points >= 5000 && this.enemyTick % 300 === 0) {
       this.enemies.push(new Enemy4(this.container, this.player));
     }
+    const currentMilestone = Math.floor(this.score.points / 10000)
     if (
-      this.score.points % 1000 === 0 &&
-      this.score.points >= 1500 &&
+      currentMilestone > this.enemyBossMilestone &&
+      this.score.points !== 0 &&
+      this.score.points >= 10000 &&
       this.activeEnemyBoss
     ) {
+      this.enemyBossMilestone = currentMilestone
       this.enemyBoss.push(new Enemy3(this.container));
       this.activeEnemyBoss = false;
     }
   }
 
   bombAppear() {
-    const currentMilestone = Math.floor(this.score.points / 500);
+    const currentMilestone = Math.floor(this.score.points / 15000);
 
     if (
       currentMilestone > this.bombMilestone &&
@@ -55,7 +59,7 @@ class Game {
       !this.scoreBombsArr.includes(this.score.points)
     ) {
       this.arrBombs.push(new Bomb(this.container));
-      this.bombMilestone = currentMilestone; // Update the last milestone
+      this.bombMilestone = currentMilestone;
     }
   }
 
@@ -123,7 +127,7 @@ class Game {
           });
 
           bullet.element.remove();
-          this.score.scorePoints(100);
+          this.score.scorePoints(enemy.scoreValue);
 
           this.player.bullets = this.player.bullets.filter((bul) => {
             return bul !== bullet;

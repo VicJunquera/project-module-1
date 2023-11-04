@@ -1,7 +1,7 @@
 
 
 Player
-    Cuando pierde una vida, explosión, limpia el game board y vuelve a aparecer 1 segundo después
+
 
 Enemy1, 2 y 3
     Modificar su velocidad y frecuencia de aparición en función del score
