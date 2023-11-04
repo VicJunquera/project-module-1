@@ -36,6 +36,7 @@ class Game {
     if (this.score.points >= 5000 && this.enemyTick % 300 === 0) {
       this.enemies.push(new Enemy4(this.container, this.player));
     }
+
     const currentMilestone = Math.floor(this.score.points / 10000)
     if (
       currentMilestone > this.enemyBossMilestone &&
@@ -260,7 +261,11 @@ class Game {
 
   gameOver() {
     const gameOverBoard = document.getElementById("game-over-board");
+    const gameOverTitle = document.getElementById("game-over-title");
     gameOverBoard.style.display = "flex";
+    gameOverBoard.style.flexDirection = "column";
+    gameOverBoard.style.justifyContent = "space-around";
+    gameOverBoard.style.alignItems = "center";
 
     const scoreContainer = document.getElementById("score-container");
     scoreContainer.textContent = `SCORE: ${this.score.points}`;
