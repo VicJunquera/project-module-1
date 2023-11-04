@@ -2,8 +2,8 @@ class Enemy5 {
   constructor(container, player) {
     this.container = container;
     this.player = player;
-    this.width = 45;
-    this.height = 55;
+    this.width = 55;
+    this.height = 57;
 
     this.scoreValue = 200;
     this.speed = 4;
@@ -19,8 +19,6 @@ class Enemy5 {
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
     this.element.style.transformOrigin = "bottom center";
-
-
 
     this.container.appendChild(this.element);
     this.rotateToFacePlayer();

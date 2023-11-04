@@ -1,14 +1,13 @@
 class Enemy3 {
   constructor(container) {
     this.container = container;
-    this.width = 100;
-    this.height = 100;
+    this.width = 120;
+    this.height = 120;
     this.x = this.container.offsetWidth / 2 - 50;
     this.y = -70;
     this.vy = 5;
 
     this.scoreValue = 800;
-
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
@@ -23,7 +22,6 @@ class Enemy3 {
 
     this.hits = 0;
     this.cooldown = 0;
-  
 
     // Initialize the enemyBullets array
     this.enemyBullets = [];

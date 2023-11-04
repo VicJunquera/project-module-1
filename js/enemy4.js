@@ -2,8 +2,8 @@ class Enemy4 {
   constructor(container, player) {
     this.container = container;
     this.player = player;
-    this.width = 45;
-    this.height = 55;
+    this.width = 65;
+    this.height = 45;
     this.x = this.getRandomXPosition();
     this.y = this.getRandomYPosition();
 
@@ -28,15 +28,13 @@ class Enemy4 {
   }
 
   getRandomXPosition() {
-    return Math.floor(
-      Math.random() * (this.container.offsetWidth - this.width)
-    );
+    const onLeftSide = Math.random() < 0.5; // Decidir si está en el lado izquierdo
+    return onLeftSide ? 0 : this.container.offsetWidth - this.width;
   }
 
   getRandomYPosition() {
-    return Math.floor(
-      Math.random() * (this.container.offsetHeight - this.height)
-    );
+    const onTopSide = Math.random() < 0.5; // Decidir si está en la parte superior
+    return onTopSide ? 0 : this.container.offsetHeight - this.height;
   }
 
   rotateToFacePlayer() {
