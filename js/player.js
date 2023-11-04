@@ -1,6 +1,7 @@
 class Player {
-  constructor(container) {
+  constructor(container, game) {
     this.container = container;
+    this.game = game;
     this.width = 50;
     this.height = 70;
     this.x = container.offsetWidth / 2;
@@ -65,13 +66,36 @@ class Player {
     this.animate();
   }
 
-  /*dash() {
-    this.speed = 30;
-    setTimeout (() => {
-        this.speed = 5
-    }, 400)
-  }*/
+  reassignSpeed() {
+    if (this.movements.up) {
+      this.vy = -this.speed;
+    }
+    if (this.movements.down) {
+      this.vy = this.speed;
+    }
+    if (this.movements.left) {
+      this.vx = -this.speed;
+    }
+    if (this.movements.right) {
+      this.vx = this.speed;
+    }
+  }
 
+  dash() {
+    this.speed = 30;
+    this.reassignSpeed();
+    setTimeout(() => {
+      this.speed = 5;
+      this.reassignSpeed();
+    }, 100);
+  }
+
+  triggerBomb() {
+    if (this.bombs > 0) {
+      this.game.activateBomb();
+      this.game.score.removeBomb();
+    }
+  }
   animate() {
     if (this.movements.up === true && this.movements.right === true) {
       this.rotatePlayer(45);
@@ -147,8 +171,12 @@ class Player {
 
           break;
 
-        case "KeyQ":
+        case "ShiftLeft":
           this.dash();
+          break;
+
+        case "Space":
+          this.triggerBomb();
           break;
 
         default:

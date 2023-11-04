@@ -8,12 +8,15 @@ class Enemy2 {
 
     this.speed = 5
     this.vy = this.speed;
+    this.scoreValue = 150;
+
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
     this.element.style.background = `url(./assets/enemy2.gif)`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
+    this.element.className = "enemy2";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.left = `${this.x}px`;

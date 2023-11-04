@@ -6,15 +6,21 @@ class Enemy3 {
     this.x = this.container.offsetWidth / 2 - 50;
     this.y = -70;
     this.vy = 5;
+
+    this.scoreValue = 800;
+
+
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
     this.element.style.background = `url(./assets/enemy3.gif)`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
+    this.element.className = "enemyBoss";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
+
     this.hits = 0;
     this.cooldown = 0;
   
