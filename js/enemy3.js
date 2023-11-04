@@ -67,10 +67,6 @@ class Enemy3 {
       enemyRect.top < obstacleRect.bottom &&
       enemyRect.bottom > obstacleRect.top
     ) {
-      this.hits++;
-      if (this.hits >= 10) {
-        this.element.remove();
-      }
       return true;
     }
     return false;

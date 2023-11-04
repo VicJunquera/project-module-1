@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25px" height="25px" viewBox="0 0 25 25" version="1.1">
+<g id="surface1">
+<path style="fill:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 50 1 L 50 35 Z M 50 1 " transform="matrix(0.25,0,0,0.25,0,0)"/>
+<path style="fill:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 50 65 L 50 100 Z M 50 65 " transform="matrix(0.25,0,0,0.25,0,0)"/>
+<path style="fill:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 35 50 L 0 50 Z M 35 50 " transform="matrix(0.25,0,0,0.25,0,0)"/>
+<path style="fill:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 100 50 L 65 50 Z M 100 50 " transform="matrix(0.25,0,0,0.25,0,0)"/>
+<path style="fill:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 83 50 C 83 68.21875 68.21875 83 50 83 C 31.78125 83 17 68.21875 17 50 C 17 31.78125 31.78125 17 50 17 C 68.21875 17 83 31.78125 83 50 Z M 83 50 " transform="matrix(0.25,0,0,0.25,0,0)"/>
+</g>
+</svg>

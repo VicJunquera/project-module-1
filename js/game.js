@@ -24,34 +24,49 @@ class Game {
   }
 
   enemyAppear() {
-    if (this.score.points >= 0 && this.enemyTick % 90 === 0) {
-      this.enemies.push(new Enemy(this.container));
-    }
-    if (this.score.points >= 500 && this.enemyTick % 120 === 0) {
-      this.enemies.push(new Enemy2(this.container));
-    }
-    if (this.score.points >= 1500 && this.enemyTick % 150 === 0) {
-      this.enemies.push(new Enemy5(this.container, this.player));
-    }
-    if (this.score.points >= 5000 && this.enemyTick % 300 === 0) {
-      this.enemies.push(new Enemy4(this.container, this.player));
+    if (this.score.points <= 20000) {
+      if (this.score.points >= 0 && this.enemyTick % 90 === 0) {
+        this.enemies.push(new Enemy(this.container));
+      }
+      if (this.score.points >= 500 && this.enemyTick % 120 === 0) {
+        this.enemies.push(new Enemy2(this.container));
+      }
+      if (this.score.points >= 1500 && this.enemyTick % 150 === 0) {
+        this.enemies.push(new Enemy5(this.container, this.player));
+      }
+      if (this.score.points >= 5000 && this.enemyTick % 300 === 0) {
+        this.enemies.push(new Enemy4(this.container, this.player));
+      }
+    } else {
+      if (this.score.points >= 0 && this.enemyTick % 45 === 0) {
+        this.enemies.push(new Enemy(this.container));
+      }
+      if (this.score.points >= 500 && this.enemyTick % 60 === 0) {
+        this.enemies.push(new Enemy2(this.container));
+      }
+      if (this.score.points >= 1500 && this.enemyTick % 75 === 0) {
+        this.enemies.push(new Enemy5(this.container, this.player));
+      }
+      if (this.score.points >= 5000 && this.enemyTick % 150 === 0) {
+        this.enemies.push(new Enemy4(this.container, this.player));
+      }
     }
 
-    const currentMilestone = Math.floor(this.score.points / 10000)
+    const currentMilestone = Math.floor(this.score.points / 500);
     if (
       currentMilestone > this.enemyBossMilestone &&
       this.score.points !== 0 &&
-      this.score.points >= 10000 &&
+      this.score.points >= 500 &&
       this.activeEnemyBoss
     ) {
-      this.enemyBossMilestone = currentMilestone
+      this.enemyBossMilestone = currentMilestone;
       this.enemyBoss.push(new Enemy3(this.container));
       this.activeEnemyBoss = false;
     }
   }
 
   bombAppear() {
-    const currentMilestone = Math.floor(this.score.points / 15000);
+    const currentMilestone = Math.floor(this.score.points / 500);
 
     if (
       currentMilestone > this.bombMilestone &&
@@ -67,15 +82,20 @@ class Game {
   activateBomb() {
     this.enemies.forEach((enemy) => {
       enemy.element.remove();
+      new Explosion(this.container, enemy.x, enemy.y);
+      this.score.scorePoints(enemy.scoreValue);
     });
     this.enemyBoss.forEach((enemy) => {
       enemy.deactivate();
       enemy.element.remove();
+      new Explosion(this.container, enemy.x, enemy.y);
+      this.score.scorePoints(enemy.scoreValue);
       enemy.enemyBullets.forEach((enemyBullet) => {
         enemyBullet.element.remove();
       });
       this.activeEnemyBoss = true;
     });
+
     this.player.bombs--;
     this.enemies = [];
     this.enemyBoss = [];
@@ -104,25 +124,31 @@ class Game {
     });
 
     if (collidedBoss) {
-      this.enemyBoss = this.enemyBoss.filter((enemy) => {
-        return enemy !== collidedBoss;
-      });
+    this.enemyBoss = this.enemyBoss.filter((enemy) => {
+      return enemy !== collidedBoss;
+    });
 
-      collidedBoss.element.style.display = "none";
+    collidedBoss.element.style.display = "none";
+    this.player.hits--;
+    this.score.update(this.player.hits, "enemy");
 
-      // Después de 2 segundos, volver a mostrar al jugador
-      this.player.hits--;
+    // Remove the Enemy3 and its bullets
+    collidedBoss.deactivate();
+    collidedBoss.element.remove();
+    this.score.scorePoints(collidedBoss.scoreValue);
+    collidedBoss.enemyBullets.forEach((enemyBullet) => {
+      enemyBullet.element.remove();
+    });
 
-      // Deactivate the Enemy3 when it collides with the player
-      collidedBoss.deactivate();
-      this.score.update(this.player.hits, "enemy");
-    }
+    this.activeEnemyBoss = true;
+  }
 
     // bullet - enemy collision
     this.player.bullets.find((bullet) => {
       this.enemies.find((enemy) => {
         if (enemy.didCollide(bullet)) {
           enemy.element.remove();
+          new Explosion(this.container, enemy.x, enemy.y);
           this.enemies = this.enemies.filter((en) => {
             return en !== enemy;
           });
@@ -149,7 +175,8 @@ class Game {
             if (enemy.hits >= 10) {
               enemy.deactivate();
               enemy.element.remove();
-              this.score.scorePoints(1000); // Remove the Enemy3
+              new Explosion(this.container, enemy.x, enemy.y);
+              this.score.scorePoints(enemy.scoreValue); // Remove the Enemy3
               enemy.enemyBullets.forEach((enemyBullet) => {
                 enemyBullet.element.remove();
               });
@@ -168,7 +195,7 @@ class Game {
       });
 
       // Remove defeated Enemy3 from the enemyBoss array
-      this.enemyBoss = this.enemyBoss.filter((enemy) => enemy.hits < 10);
+      this.enemyBoss = this.enemyBoss.filter((enemy) => enemy.hits <= 10);
 
       // Remove bullets that need to be removed
       bulletsToRemove.forEach((bullet) => {
@@ -179,7 +206,6 @@ class Game {
       });
     });
 
-    //
     this.enemyBoss.forEach((enemy) => {
       enemy.enemyBullets = enemy.enemyBullets.filter((enemyBullet) => {
         if (this.player.didCollide(enemyBullet)) {

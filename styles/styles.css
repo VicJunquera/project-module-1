@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+.custom-cursor {
+  cursor: url("../assets/crosshair.svg"), auto;
+}
+
 h2 {
   margin: 0;
   color: white;
@@ -23,6 +27,7 @@ h2 {
   position: relative;
   background: url(../assets/background.png);
   background-size: cover;
+  user-select: none;
 }
 
 #intro-game-btn {
@@ -34,16 +39,19 @@ h2 {
   font-size: 35px;
   background-color: #19055c;
   color: white;
+  cursor: url("../assets/crosshair.svg"), auto;
+
 }
 #intro-game-btn:hover {
   background-color: #3613a8;
+
 }
 
 #title-game {
   position: absolute;
   margin-top: -100px;
   border: none;
-  background: url(/assets/titlegame.gif);
+  background: url(../assets/titlegame.gif);
   width: 600px;
   height: 150px;
   background-size: cover;
@@ -62,7 +70,7 @@ h2 {
 
 #game-over-title {
   border: none;
-  background: url(/assets/gameover.gif);
+  background: url(../assets/gameover.gif);
   width: 600px;
   height: 150px;
   background-size: cover;
@@ -81,10 +89,15 @@ h2 {
 
 #btn-restart:hover {
   background-color: #3613a8;
+  cursor: url("../assets/crosshair.svg"), auto;
 }
 
 #score-container {
   font-family: "Pixelify Sans";
   font-size: 50px;
   letter-spacing: 2px;
+}
+
+.custom-cursor {
+  cursor: url("../assets/crosshair.svg"), auto;
 }
