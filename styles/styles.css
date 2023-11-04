@@ -40,11 +40,9 @@ h2 {
   background-color: #19055c;
   color: white;
   cursor: url("../assets/crosshair.svg"), auto;
-
 }
 #intro-game-btn:hover {
   background-color: #3613a8;
-
 }
 
 #title-game {
@@ -66,6 +64,7 @@ h2 {
   background-repeat: no-repeat;
   position: absolute;
   display: none;
+  user-select: none;
 }
 
 #game-over-title {

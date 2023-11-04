@@ -2,7 +2,7 @@ class EnemyBullet {
   constructor(container, x, y, angle) {
     this.container = container;
     this.width = 20;
-    this.height = 20;
+    this.height = 23;
     this.x = x;
     this.y = y;
     this.angle = angle;
