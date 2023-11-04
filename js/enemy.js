@@ -6,7 +6,8 @@ class Enemy {
     this.x = this.container.offsetWidth;
     this.y = Math.floor(Math.random() * this.container.offsetHeight);
 
-    this.vx = -5;
+    this.speed = -5
+    this.vx = this.speed;
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";

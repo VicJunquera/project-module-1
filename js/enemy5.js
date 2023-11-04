@@ -4,7 +4,7 @@ class Enemy5 {
     this.player = player;
     this.width = 45;
     this.height = 55;
-    this.speed = 5; // Adjust the speed as needed
+    this.speed = 4; // Adjust the speed as needed
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";

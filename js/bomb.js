@@ -8,9 +8,9 @@ class Bomb {
   
       this.element = document.createElement("div");
       this.element.style.position = "absolute";
-      this.element.style.background = "url(./assets/bomb.gif)";
-      this.element.style.backgroundSize = "cover";
-      this.element.style.backgroundPosition = "center";
+      this.element.style.backgroundColor = "red";
+/*      this.element.style.background = "url(./assets/bomb.gif)";
+      this.element.style.objectFit = "cover"; */
   
       this.element.style.width = `${this.width}px`;
       this.element.style.height = `${this.height}px`;

@@ -12,7 +12,7 @@ class Player {
     this.canShoot = true;
     this.rotation = 0;
     this.hits = 3;
-    this.bombs = 0;
+    this.bombs = 1;
     this.img = `url(./assets/player.gif)`;
     this.draw();
     this.setListeners();
@@ -140,6 +140,11 @@ class Player {
 
           break;
 
+        case "Shift":
+          this.dash();
+
+          break;
+
         default:
           return;
       }
@@ -234,11 +239,4 @@ class Player {
 
     return false; // No collision
   }
-  
-  update(lifes, bombs, collisionType) {
-    this.lifes = lifes;
-    this.bombs = bombs; // Update the bomb count
-    this.updateHearts(collisionType);
-  }
-
 }

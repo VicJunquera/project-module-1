@@ -6,7 +6,7 @@ class Enemy4 {
     this.height = 55;
     this.x = this.getRandomXPosition();
     this.y = this.getRandomYPosition();
-    this.speed = 2; // Adjust the speed as needed
+    this.speed = 3; // Adjust the speed as needed
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
