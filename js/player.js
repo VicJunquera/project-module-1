@@ -65,6 +65,13 @@ class Player {
     this.animate();
   }
 
+  /*dash() {
+    this.speed = 30;
+    setTimeout (() => {
+        this.speed = 5
+    }, 400)
+  }*/
+
   animate() {
     if (this.movements.up === true && this.movements.right === true) {
       this.rotatePlayer(45);
@@ -138,6 +145,10 @@ class Player {
           this.vy = this.speed;
           this.movements.down = true;
 
+          break;
+
+        case "KeyQ":
+          this.dash();
           break;
 
         default:

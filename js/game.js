@@ -19,25 +19,32 @@ class Game {
     }, 1000 / 30);
   }
 
+  
+
   enemyAppear() {
-    if (this.score.points >= 0 && this.enemyTick % 30 === 0) {
+    if (this.score.points >= 0 && this.enemyTick % 90 === 0) {
       this.enemies.push(new Enemy(this.container));
     }
-    if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
-      this.enemies.push(new Enemy2(this.container));
+
+    
     }
-    if (
-      this.score.points % 1000 === 0 &&
-      this.score.points >= 1000 &&
-      this.activeEnemyBoss
-    ) {
+    if (this.score.points >= 200 && this.enemyTick % 90 === 0) {
+      this.enemies.push(new Enemy2(this.container))
+    }
+    if (this.score.points >= 500 && this.enemyTick % 120 === 0) {
+      this.enemies.push(new Enemy5(this.container, this.player));
+    }
+    if (this.score.points >= 700 && this.enemyTick % 180 === 0) {
+      this.enemies.push(new Enemy4(this.container, this.player));
+    }
+    if (this.score.points % 1000 === 0 && this.score.points >= 1500 && this.activeEnemyBoss) {
       this.enemyBoss.push(new Enemy3(this.container));
       this.activeEnemyBoss = false;
     }
-    if (this.score.points % 500 === 0 && this.arrBombs.length < 1) {
+if (this.score.points % 500 === 0 && this.arrBombs.length < 1) {
       this.arrBombs.push(new Bomb(this.container));
-    }
   }
+}
 
   checkCollisions() {
     // Enemy - player collision
@@ -242,5 +249,6 @@ class Game {
       this.gameOver();
     }
     this.cleanup();
+
   }
 }
