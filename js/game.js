@@ -2,18 +2,18 @@ class Game {
   constructor(container) {
     this.container = container;
     this.player = new Player(this.container);
-    this.score = new Score(this.container, this.player.hits);
+    this.score = new Score(this.container, this.player.hits, this.player.bombs);
     this.enemies = [];
     this.enemyBoss = [];
     this.enemyTick = 0;
     this.activeEnemyBoss = true;
-    this.bombs = [];
+    this.arrBombs = [];
     this.activeBomb = true;
   }
 
   start() {
     this.intervalId = setInterval(() => {
-      this.enemyTick++
+      this.enemyTick++;
       this.enemyAppear();
       this.update();
     }, 1000 / 30);
@@ -24,6 +24,9 @@ class Game {
   enemyAppear() {
     if (this.score.points >= 0 && this.enemyTick % 90 === 0) {
       this.enemies.push(new Enemy(this.container));
+    }
+
+    
     }
     if (this.score.points >= 200 && this.enemyTick % 90 === 0) {
       this.enemies.push(new Enemy2(this.container))
@@ -38,14 +41,10 @@ class Game {
       this.enemyBoss.push(new Enemy3(this.container));
       this.activeEnemyBoss = false;
     }
-
-    /*if (this.score.points === 200 && this.activeBomb){
-      console.log("entra")
-      this.bombs.push(new Bomb(this.container));
-      this.activeBomb = false;
-    }*/
-
+if (this.score.points % 500 === 0 && this.arrBombs.length < 1) {
+      this.arrBombs.push(new Bomb(this.container));
   }
+}
 
   checkCollisions() {
     // Enemy - player collision
@@ -59,12 +58,7 @@ class Game {
       });
 
       collidedEnemy.element.style.display = "none";
-      this.player.element.style.display = "none";
 
-      // Después de 2 segundos, volver a mostrar al jugador
-      setTimeout(() => {
-        this.player.element.style.display = "block";
-      }, 2000);
       this.player.hits--;
       this.score.update(this.player.hits, "enemy");
     }
@@ -80,12 +74,8 @@ class Game {
       });
 
       collidedBoss.element.style.display = "none";
-      this.player.element.style.display = "none";
 
       // Después de 2 segundos, volver a mostrar al jugador
-      setTimeout(() => {
-        this.player.element.style.display = "block";
-      }, 2000);
       this.player.hits--;
 
       // Deactivate the Enemy3 when it collides with the player
@@ -154,6 +144,7 @@ class Game {
       });
     });
 
+    //
     this.enemyBoss.forEach((enemy) => {
       enemy.enemyBullets = enemy.enemyBullets.filter((enemyBullet) => {
         if (this.player.didCollide(enemyBullet)) {
@@ -162,8 +153,13 @@ class Game {
           this.score.update(this.player.hits, "enemy");
           this.player.element.style.display = "none";
 
-          // Después de 2 segundos, volver a mostrar al jugador
+          const blinkInterval = setInterval(() => {
+            this.player.element.style.display =
+              this.player.element.style.display === "none" ? "block" : "none";
+          }, 200);
+
           setTimeout(() => {
+            clearInterval(blinkInterval);
             this.player.element.style.display = "block";
           }, 2000);
           return false; // Remove the enemyBullet
@@ -174,14 +170,33 @@ class Game {
     });
 
     // player - bomb collision
-    const collidedBomb = this.bombs.find((bomb) => {
+    const collidedBomb = this.arrBombs.find((bomb) => {
       return bomb.didCollide(this.player);
     });
-if (this.collidedBomb) {
-  this.activeBomb = true;
-  this.player.bombs++;
-  this.score.update(this.player.bombs, "bomb");
-}
+    if (collidedBomb) {
+      if (this.player.bombs < 3) {
+        this.player.bombs++;
+        this.score.updateBombs(this.player.bombs);
+      }
+
+      this.arrBombs = this.arrBombs.filter((bomb) => bomb !== collidedBomb);
+      collidedBomb.element.remove();
+      console.log(this.player.bombs);
+    }
+
+    if (collidedEnemy || collidedBoss) {
+      this.player.element.style.display = "none";
+
+      const blinkInterval = setInterval(() => {
+        this.player.element.style.display =
+          this.player.element.style.display === "none" ? "block" : "none";
+      }, 200);
+
+      setTimeout(() => {
+        clearInterval(blinkInterval);
+        this.player.element.style.display = "block";
+      }, 2000);
+    }
   }
 
   cleanup() {
@@ -215,7 +230,6 @@ if (this.collidedBomb) {
     const scoreContainer = document.getElementById("score-container");
     scoreContainer.textContent = `SCORE: ${this.score.points}`;
 
-
     clearInterval(this.intervalId);
   }
 
@@ -233,7 +247,7 @@ if (this.collidedBomb) {
     this.checkCollisions();
     if (this.player.hits === 0) {
       this.gameOver();
-  }
+    }
     this.cleanup();
 
   }
