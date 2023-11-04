@@ -19,11 +19,13 @@ class Game {
     }, 1000 / 30);
   }
 
+  
+
   enemyAppear() {
     if (this.score.points >= 0 && this.enemyTick % 30 === 0) {
       this.enemies.push(new Enemy(this.container));
     }
-    if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
+    /*if (this.score.points >= 500 && this.enemyTick % 50 === 0) {
       this.enemies.push(new Enemy2(this.container))
     }
     if (this.score.points % 1000 === 0 && this.score.points >= 1000 && this.activeEnemyBoss) {
@@ -34,6 +36,12 @@ class Game {
       console.log("entra")
       this.bombs.push(new Bomb(this.container));
       this.activeBomb = false;
+    }*/
+    if (this.score.points >= 400 && this.enemyTick % 70 === 0) {
+      this.enemies.push(new Enemy4(this.container, this.player));
+    }
+    if (this.score.points >= 200 && this.enemyTick % 70 === 0) {
+      this.enemies.push(new Enemy5(this.container, this.player));
     }
   }
 
