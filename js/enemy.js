@@ -6,11 +6,11 @@ class Enemy {
     this.x = this.container.offsetWidth;
     this.y = Math.floor(Math.random() * this.container.offsetHeight);
 
-    this.vx = -5;
+    this.speed = -5
+    this.vx = this.speed;
 
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
-    this.element.style.background = `url(./assets/enemy3.gif)`;
     this.element.style.background = `url(./assets/enemy.gif)`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
