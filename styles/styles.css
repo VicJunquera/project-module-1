@@ -65,6 +65,7 @@ h2 {
   position: absolute;
   display: none;
   user-select: none;
+  cursor: url("../assets/crosshair.svg"), auto;
 }
 
 #game-over-title {

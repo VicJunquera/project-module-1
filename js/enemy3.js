@@ -23,27 +23,23 @@ class Enemy3 {
     this.hits = 0;
     this.cooldown = 0;
 
-    // Initialize the enemyBullets array
     this.enemyBullets = [];
 
-    // Flag to track if the enemy is active
-    this.isActive = true; // Add an initial active state
-    this.startShooting(); // Start shooting immediately
+    this.isActive = true;
+    this.startShooting();
 
     this.container.appendChild(this.element);
     this.move();
 
-    // Set up a timer to shoot every 2 seconds
     this.enemyShootInterval = setInterval(() => {
       if (this.container.querySelector(".player") && this.isActive) {
         this.startShooting();
       }
-    }, 1000); // Adjust the interval as needed (2 seconds)
+    }, 1000);
 
-    // Set up a timer to update enemy bullet positions
     setInterval(() => {
       this.updateEnemyBullets();
-    }, 1000 / 30); // Adjust the interval as needed (30 frames per second)
+    }, 1000 / 30);
   }
 
   move() {
@@ -86,7 +82,6 @@ class Enemy3 {
         playerRectX - (this.x + this.width / 2)
       );
 
-      // Create and shoot an enemy bullet
       const enemyBullet = new EnemyBullet(
         this.container,
         this.x + this.width / 2,
@@ -94,19 +89,17 @@ class Enemy3 {
         angle
       );
 
-      // Add the enemy bullet to the array
       this.enemyBullets.push(enemyBullet);
     }
   }
 
   updateEnemyBullets() {
-    // Update the position of each enemy bullet
     this.enemyBullets.forEach((enemyBullet) => {
       enemyBullet.move();
     });
     this.cleanupEnemyBullets();
   }
-  // Add a method to deactivate the enemy
+
   deactivate() {
     this.isActive = false;
     clearInterval(this.shootingInterval);
