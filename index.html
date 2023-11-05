@@ -10,7 +10,7 @@
     </style>
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
-  <body>
+  <body>    
     <div id="game-board" class="custom-cursor">
       <div id="title-game"></div>
       <button id="intro-game-btn">START</button>
@@ -20,6 +20,18 @@
       <h2 id="score-container"></h2>
       <button id="btn-restart" class="btn-restart">RESTART</button>
     </div>
+
+    <audio id="start-music" loop>
+      <source src="./music/start-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="game-music" loop>
+      <source src="./music/game-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="game-over-music" loop>
+      <source src="./music/game-over-music.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="js/explosion.js"></script>
     <script src="js/enemy5.js"></script>

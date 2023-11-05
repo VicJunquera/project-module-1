@@ -21,6 +21,9 @@ class Game {
       this.bombAppear();
       this.update();
     }, 1000 / 30);
+
+    const gameMusic = document.getElementById("game-music");
+    gameMusic.play();
   }
 
   enemyAppear() {
@@ -291,6 +294,9 @@ class Game {
     scoreContainer.textContent = `SCORE: ${this.score.points}`;
 
     clearInterval(this.intervalId);
+
+    const gameOverMusic = document.getElementById("game-over-music");
+    gameOverMusic.play();
   }
 
   update() {

@@ -5,6 +5,7 @@ class Explosion {
     this.y = y - 10;
     this.duration = 500;
     this.img = `url(./assets/explosion.gif)`;
+    this.rotation = Math.random() * 360;
     this.createExplosionElement();
   }
   createExplosionElement() {
@@ -17,6 +18,7 @@ class Explosion {
     this.element.style.height = "100px";
     this.element.style.left = `${this.x}px`;
     this.element.style.top = `${this.y}px`;
+    this.element.style.transform = `rotate(${this.rotation}deg)`;
 
     this.container.appendChild(this.element);
 
