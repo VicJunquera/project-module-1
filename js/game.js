@@ -239,7 +239,6 @@ class Game {
 
       this.arrBombs = this.arrBombs.filter((bomb) => bomb !== collidedBomb);
       collidedBomb.element.remove();
-      console.log(this.player.bombs);
     }
 
     if (collidedEnemy || collidedBoss) {

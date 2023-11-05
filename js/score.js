@@ -77,15 +77,14 @@ class Score {
   updateBombs(bombs) {
     this.bombs = bombs;
     const bombsContainer = document.getElementById("bombs-container");
-    bombsContainer.innerHTML = '';
-
+    bombsContainer.innerHTML = "";
 
     for (let i = 0; i < this.bombs; i++) {
       const bomb = document.createElement("img");
       bomb.src = "./assets/bomb.gif";
       bomb.style.width = "30px";
       bomb.style.height = "30px";
-  
+
       bombsContainer.appendChild(bomb);
       this.bombElements.push(bomb);
     }
@@ -97,5 +96,4 @@ class Score {
       bomb.remove();
     }
   }
-    
 }

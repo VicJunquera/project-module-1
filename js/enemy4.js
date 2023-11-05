@@ -28,12 +28,12 @@ class Enemy4 {
   }
 
   getRandomXPosition() {
-    const onLeftSide = Math.random() < 0.5; // Decidir si está en el lado izquierdo
+    const onLeftSide = Math.random() < 0.5;
     return onLeftSide ? 0 : this.container.offsetWidth - this.width;
   }
 
   getRandomYPosition() {
-    const onTopSide = Math.random() < 0.5; // Decidir si está en la parte superior
+    const onTopSide = Math.random() < 0.5;
     return onTopSide ? 0 : this.container.offsetHeight - this.height;
   }
 

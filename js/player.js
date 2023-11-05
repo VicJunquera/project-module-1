@@ -250,7 +250,6 @@ class Player {
   }
 
   didCollide(enemy) {
-    // Calculate the positions and dimensions of the player and the enemy
     const playerLeft = this.x;
     const playerRight = this.x + this.width;
     const playerTop = this.y;
@@ -261,7 +260,6 @@ class Player {
     const enemyTop = enemy.y;
     const enemyBottom = enemy.y + enemy.height;
 
-    // Check for collision using bounding box collision detection
     if (
       playerLeft < enemyRight &&
       playerRight > enemyLeft &&

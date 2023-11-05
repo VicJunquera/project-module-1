@@ -67,7 +67,6 @@ class Enemy5 {
         break;
     }
 
-    // Calculate the angle towards the player
     const playerX = this.player.x + this.player.width / 2;
     const playerY = this.player.y + this.player.height / 2;
 
