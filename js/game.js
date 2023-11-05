@@ -106,12 +106,12 @@ class Game {
 
   checkCollisions() {
     // Enemy - player collision
+
     const collidedEnemy = this.enemies.find((enemy) => {
       return enemy.didCollide(this.player);
     });
 
     if (collidedEnemy) {
-      console.log(collidedEnemy);
       new Explosion(this.container, collidedEnemy.x, collidedEnemy.y);
       this.enemies = this.enemies.filter((enemy) => {
         return enemy !== collidedEnemy;
@@ -124,6 +124,7 @@ class Game {
     }
 
     // EnemyBoss - player collision
+
     const collidedBoss = this.enemyBoss.find((enemy) => {
       return enemy.didCollide(this.player);
     });
@@ -138,7 +139,6 @@ class Game {
       this.score.update(this.player.hits, "enemy");
       collidedBoss.deactivate();
       collidedBoss.element.remove();
-      console.log(collidedBoss.element);
       this.score.scorePoints(collidedBoss.scoreValue);
       collidedBoss.enemyBullets.forEach((enemyBullet) => {
         enemyBullet.element.remove();
@@ -148,6 +148,7 @@ class Game {
     }
 
     // bullet - enemy collision
+
     this.player.bullets.find((bullet) => {
       this.enemies.find((enemy) => {
         if (enemy.didCollide(bullet)) {
@@ -169,6 +170,7 @@ class Game {
       const bulletsToRemove = [];
 
       // bullet - enemyBoss collision
+
       this.player.bullets = this.player.bullets.filter((bullet) => {
         const collidedBoss = this.enemyBoss.find((enemy) => {
           if (enemy.didCollide(bullet)) {
@@ -230,6 +232,7 @@ class Game {
     });
 
     // player - bomb collision
+
     const collidedBomb = this.arrBombs.find((bomb) => {
       return bomb.didCollide(this.player);
     });
@@ -295,7 +298,9 @@ class Game {
 
     clearInterval(this.intervalId);
 
+    const gameMusic = document.getElementById("game-music");
     const gameOverMusic = document.getElementById("game-over-music");
+    gameMusic.pause();
     gameOverMusic.play();
   }
 

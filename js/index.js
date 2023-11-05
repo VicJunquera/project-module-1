@@ -26,6 +26,4 @@ window.addEventListener("load", () => {
     btnStart.style.transform = "translate(0, 100px)";
     btnStart.style.transition = "2s";
   });
-  const startMusic = document.getElementById("start-music");
-  startMusic.play();
 });

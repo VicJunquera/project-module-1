@@ -49,19 +49,19 @@ class Enemy5 {
     let x, y;
 
     switch (edge) {
-      case 0: // Top edge
+      case 0: // Top
         x = Math.random() * (this.container.offsetWidth - this.width);
         y = -this.height;
         break;
-      case 1: // Right edge
+      case 1: // Right
         x = this.container.offsetWidth;
         y = Math.random() * (this.container.offsetHeight - this.height);
         break;
-      case 2: // Bottom edge
+      case 2: // Bottom
         x = Math.random() * (this.container.offsetWidth - this.width);
         y = this.container.offsetHeight;
         break;
-      case 3: // Left edge
+      case 3: // Left
         x = -this.width;
         y = Math.random() * (this.container.offsetHeight - this.height);
         break;

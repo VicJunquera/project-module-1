@@ -8,6 +8,7 @@ class Explosion {
     this.rotation = Math.random() * 360;
     this.createExplosionElement();
   }
+
   createExplosionElement() {
     this.element = document.createElement("div");
     this.element.className = "explosion";

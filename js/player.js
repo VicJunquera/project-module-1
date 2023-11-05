@@ -96,6 +96,7 @@ class Player {
       this.game.score.removeBomb();
     }
   }
+  
   animate() {
     if (this.movements.up === true && this.movements.right === true) {
       this.rotatePlayer(45);

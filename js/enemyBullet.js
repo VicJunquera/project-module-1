@@ -7,6 +7,7 @@ class EnemyBullet {
     this.y = y;
     this.angle = angle;
     this.speed = 5;
+    
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
     this.element.style.backgroundImage = "url(./assets/enemybullet.gif)";
