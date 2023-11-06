@@ -4,7 +4,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(/assets/background-body.png);
+  background: url(../assets/background-body.png);
   margin: 0;
 }
 
