@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
   });
 
   btnStart.addEventListener("click", () => {
-    btnStart.disable = true;
+    btnStart.disabled = true;
     const game = new Game(container);
     game.start();
     titleGame.style.transform = "translate(0,-100px)";

@@ -72,3 +72,5 @@ Enemies
 Bomb
 	Eliminates all enemies (clear the board of enemies)
 	Get +1 bomb when you pick up the item
+
+	Puntuación local - Localstorage?? revisar
